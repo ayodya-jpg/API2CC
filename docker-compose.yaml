@@ -3,7 +3,7 @@ version: '3.9'
 services:
   jenkins:
     image: jenkins/jenkins:lts
-    container_name: moobile2cc
+    container_name: mobile2cc
     user: root
     ports:
       - "8081:8080"
