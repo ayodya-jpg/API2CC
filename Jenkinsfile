@@ -19,7 +19,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo '📦 Menginstall dependencies React Native...'
-                bat 'docker compose run --rm reactnative npm install'
+                bat 'docker compose run --rm reactnative npm install --unsafe-perm'
             }
         }
 
