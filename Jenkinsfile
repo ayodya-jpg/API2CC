@@ -28,7 +28,6 @@ pipeline {
             bat 'docker compose exec reactnative npm start'
             }
         }
-    }
         stage('Build Docker Image') {
             steps {
                 echo '🏗️  Membangun image Docker...'
