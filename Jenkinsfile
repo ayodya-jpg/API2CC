@@ -15,6 +15,18 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ayodya-jpg/API2CC.git'
             }
         }
+        stages {
+            stage('Install Dependencies') {
+                steps {
+                bat 'docker compose run --rm reactnative npm install'
+                }
+            }
+            stage('Start App') {
+                steps {
+                bat 'docker compose exec reactnative npm start'
+                }
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
