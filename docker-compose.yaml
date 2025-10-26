@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: moobile2cc
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    restart: unless-stopped
+
+  reactnative:
+    build: .
+    container_name: reactnative_app
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+    volumes:
+      - .:/app
+    command: npm start
+    depends_on:
+      - jenkins
