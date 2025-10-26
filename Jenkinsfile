@@ -42,7 +42,7 @@ pipeline {
         stage('Run with Docker Compose') {
             steps {
                 echo '🚀 Menjalankan container aplikasi dengan Docker Compose...'
-                sh "docker compose -f ${COMPOSE_FILE} up -d"
+                bat "docker compose -f ${COMPOSE_FILE} up -d"
             }
         }
 
