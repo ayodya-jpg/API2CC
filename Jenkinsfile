@@ -16,23 +16,9 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                echo '📦 Menginstall dependencies React Native...'
-                bat 'docker compose run --rm reactnative npm install --unsafe-perm'
-            }
-        }
-
-        stage('Start App') {
-            steps {
-                echo '🚀 Menjalankan container React Native...'
-                bat 'docker compose up -d reactnative'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
-                echo '🏗️ Membangun image Docker...'
+                echo '🏗  Membangun image Docker...'
                 script {
                     docker.build("${IMAGE_NAME}")
                 }
@@ -41,13 +27,14 @@ pipeline {
 
         stage('Push to Docker Hub') {
             steps {
-                echo '📤 Mengunggah image ke Docker Hub...'
+                echo '📦 Mengunggah image ke Docker Hub...'
                 script {
-                    bat """
-                    docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%
-                    docker tag ${CONTAINER_APP} %IMAGE_NAME%:latest
+                     bat """
+                     docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%
+                    docker tag mobile2cc %IMAGE_NAME%:latest
                     docker push %IMAGE_NAME%:latest
                     """
+                    
                 }
             }
         }
