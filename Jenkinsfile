@@ -29,9 +29,12 @@ pipeline {
             steps {
                 echo '📦 Mengunggah image ke Docker Hub...'
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKERHUB_CREDENTIALS}") {
-                        docker.image("${IMAGE_NAME}").push('latest')
-                    }
+                     bat """
+                     docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%
+                    docker tag mobile2cc %IMAGE_NAME%:latest
+                    docker push %IMAGE_NAME%:latest
+                    """
+                    
                 }
             }
         }
